@@ -19,6 +19,7 @@
     - [Params](#params)
   - [Folders without page.jsx](#folders-without-pagejsx)
   - [Fetching data](#fetching-data)
+  - [Client components](#client-components)
 
 # What is NEXT js 
 Next.js is a framework for building fast and powerful web applications using React. It includes a lot of features out of the box, such as:
@@ -194,3 +195,10 @@ we can do it this way:
 
     export default PostsList
 ```
+
+
+## Client components
+
+We have to try to avoid using the `useEffect` hook in the client side, because it will cause a lot of problems with the SEO.
+
+We have to try client components to be as small as possible, and only those small parts that need to be interactive are the ones that run in the client side.
