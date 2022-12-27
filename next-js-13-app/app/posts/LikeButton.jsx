@@ -1,3 +1,5 @@
+'use client'
+
 import { useState } from 'react'
 
 function LikeButton({id}) {
@@ -6,7 +8,7 @@ function LikeButton({id}) {
 
     return (
         <button onClick={() => setLiked(!liked)}>
-            {liked ? '<3': 'Me gusta'}
+            {liked ? 'No me gusta': '<3'}
         </button >
     )
 }

@@ -20,6 +20,11 @@
   - [Folders without page.jsx](#folders-without-pagejsx)
   - [Fetching data](#fetching-data)
   - [Client components](#client-components)
+    - [Hydration](#hydration)
+  - [Static generation *getStaticProps*](#static-generation-getstaticprops)
+  - [No static generation on fetch, *getServerSideProps*](#no-static-generation-on-fetch-getserversideprops)
+  - [*Incremental static regeneration*](#incremental-static-regeneration)
+  - [Layouts](#layouts)
 
 # What is NEXT js 
 Next.js is a framework for building fast and powerful web applications using React. It includes a lot of features out of the box, such as:
@@ -199,6 +204,118 @@ we can do it this way:
 
 ## Client components
 
-We have to try to avoid using the `useEffect` hook in the client side, because it will cause a lot of problems with the SEO.
-
 We have to try client components to be as small as possible, and only those small parts that need to be interactive are the ones that run in the client side.
+
+If we want to use a component in the client side, we have to add *use client* at the top of the code, as follows:
+
+```js
+    'use client'
+
+    import { useState } from 'react'
+
+    function LikeButton({id}) {
+
+        const [liked, setLiked] = useState(false)
+
+        return (
+            <button onClick={() => setLiked(!liked)}>
+                {liked ? '<3': 'Me gusta'}
+            </button >
+        )
+    }
+
+    export default LikeButton
+```
+
+### Hydration
+
+When we use client components together with server components we use the word **hydration**.
+
+*Hydration* is the process of converting the server components into client components.
+
+## Static generation *getStaticProps*
+
+We can use static generation to generate static pages, this means that the pages will be generated at build time and will be served from the CDN.
+
+To use static generation we just have to run the following command:
+
+```bash
+    pnpm run build
+```
+
+`Note: If we have a component like:`
+
+```js
+    const fetchPosts = () => {
+        return fetch('https://jsonplaceholder.typicode.com/posts')
+            .then(response => response.json())
+    }
+```
+
+The data in the served page will be the same as the data in the build time. So, if we want to change the data, we have to run the command `pnpm run build` again.
+
+## No static generation on fetch, *getServerSideProps*
+
+If we want that every time we visit the page, the data is updated, we have to use the following code using **{ cache: 'no-store' }**:
+
+```js
+    const fetchPosts = () => {
+        return fetch('https://jsonplaceholder.typicode.com/posts')
+            .then(response => response.json(), { cache: 'no-store' })
+    }
+```
+
+## *Incremental static regeneration*
+
+We can use the word **revalidate** to update the data every time we specify in seconds.
+
+```js
+    const fetchPosts = () => {
+        return fetch('https://jsonplaceholder.typicode.com/posts')
+            .then(response => response.json(), { 
+                next: {
+                    revalidate: 10 // every 10 seconds the data will be updated
+                }
+            })
+    }
+```
+
+## Layouts
+
+We can create a layout for the application by creating a file called `layout.jsx` in the folder **posts**.
+
+When we use a layout we always have to pass the **children** as a prop.
+
+```js
+    function PostsLayout({ children }) {
+    return (
+        <div>
+            <h1>Todos mis posts</h1>
+            {children}
+        </div>
+    )
+}
+
+export default PostsLayout
+```
+
+Layouts always mantain the states of the components. So, if we have a counter with a state in the layout, it will be the same counter in all the pages, until we move from one page to another.
+
+```js
+    import Counter from './Counter'
+
+    function PostsLayout({ children }) {
+        return (
+            <div>
+                <h1>Todos mis posts</h1>
+                <Counter />
+                {children}
+            </div>
+        )
+    }
+
+    export default PostsLayout
+```
+
+![Layout state](./images/next1.gif)
+
