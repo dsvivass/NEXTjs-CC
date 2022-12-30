@@ -1,5 +1,5 @@
 import React from 'react'
-import Link from 'next/link'
+import Image from 'next/image'
 
 const fetchPostComments = async (id) => {
 
@@ -18,9 +18,15 @@ async function Post({ params }) {
     return (
         <article>
             <h1>Comentarios</h1>
-            <ul style={{ backgroundColor: '#ccc', fontSize: '12px'}}>
+            <ul style={{ backgroundColor: '#ccc', fontSize: '12px' }}>
                 {comments.map(comment => (
                     <li key={comment.id}>
+                        <Image
+                            alt={comment.name}
+                            src={`https://avatars.dicebear.com/api/adventurer/${comment.email}.svg`}
+                            width={50}
+                            height={50}
+                        />
                         <h2>{comment.name}</h2>
                         <p>{comment.body}</p>
                     </li>

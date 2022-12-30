@@ -28,6 +28,7 @@
   - [Loading](#loading)
     - [Loading with suspense](#loading-with-suspense)
   - [Error handling](#error-handling)
+  - [Fonts](#fonts)
 
 # What is NEXT js 
 Next.js is a framework for building fast and powerful web applications using React. It includes a lot of features out of the box, such as:
@@ -385,4 +386,14 @@ We have to define the file with an 'use client' at the top of the file.
     }
 
     export default Error
+```
+
+## Fonts
+
+@next/font will automatically optimize your fonts (including custom fonts) and remove external network requests for improved privacy and performance.
+
+To use fonts, we have to install the next package:
+
+```bash
+    npm install @next/font
 ```
