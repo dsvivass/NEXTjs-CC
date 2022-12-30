@@ -1,0 +1,10 @@
+.error__container {
+    display: flex;
+    margin: 10px auto;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    background-color: red;
+    color: #fff;
+    border-radius: 4px;
+}

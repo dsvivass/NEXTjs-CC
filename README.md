@@ -25,6 +25,9 @@
   - [No static generation on fetch, *getServerSideProps*](#no-static-generation-on-fetch-getserversideprops)
   - [*Incremental static regeneration*](#incremental-static-regeneration)
   - [Layouts](#layouts)
+  - [Loading](#loading)
+    - [Loading with suspense](#loading-with-suspense)
+  - [Error handling](#error-handling)
 
 # What is NEXT js 
 Next.js is a framework for building fast and powerful web applications using React. It includes a lot of features out of the box, such as:
@@ -319,3 +322,67 @@ Layouts always mantain the states of the components. So, if we have a counter wi
 
 ![Layout state](./images/next1.gif)
 
+## Loading
+
+We can create a loading file to show a loading message while the data is being fetched.
+
+To do so, we have to create a file called `loading.jsx` in the folder where we want to show the loading component. **See comments folder**
+
+```js
+    function Loading() {
+        return (
+            <div>Cargando...</div>
+        )
+    }
+
+    export default Loading
+```
+
+And that's it, next js 13 will automatically show the loading component while the data is being fetched.
+
+### Loading with suspense
+
+If there's any reason why we won't be able to use the loading component, we can use the following code:
+
+```js
+    import { Suspense } from 'react'
+
+    function PostsList() {
+        const posts = await fetchPosts()
+
+        return posts.slice(0, 10).map(post => (
+            <article key={post.id}>
+                <h2>{post.title}</h2>
+                <p>{post.body}</p>
+            </article>
+        ))
+    }
+
+    export default function Posts() {
+        return (
+            <Suspense fallback={<div>Cargando...</div>}>
+                <PostsList />
+            </Suspense>
+        )
+    }
+```
+
+## Error handling
+
+We can create an error file to show a loading message while the data is being fetched.
+
+To do so, we have to create a file called `error.jsx` in the folder where we want to show the loading component. **See comments folder**. 
+
+We have to define the file with an 'use client' at the top of the file.
+
+```js
+    'use client'
+
+    function Error() {
+        return (
+            <div>Hubo un error</div>
+        )
+    }
+
+    export default Error
+```

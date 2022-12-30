@@ -4,7 +4,7 @@ import Counter from './Counter'
 function PostsLayout({ children }) {
   return (
     <div>
-        <h1>Todos mis posts</h1>
+        <small>Home &bull; Posts</small>
         <Counter />
         {children}
     </div>
