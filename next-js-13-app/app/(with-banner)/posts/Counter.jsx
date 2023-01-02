@@ -1,9 +1,17 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 
-function Counter () {
+function Counter() {
   const [count, setCount] = useState(0)
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    if (count > 0) {
+      dispatch({ type: 'INCREMENT', payload: null })
+    }
+  }, [count])
 
   return (
     <div>

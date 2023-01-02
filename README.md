@@ -29,6 +29,7 @@
     - [Loading with suspense](#loading-with-suspense)
   - [Error handling](#error-handling)
   - [Fonts](#fonts)
+  - [Redux](#redux)
 
 # What is NEXT js 
 Next.js is a framework for building fast and powerful web applications using React. It includes a lot of features out of the box, such as:
@@ -397,3 +398,9 @@ To use fonts, we have to install the next package:
 ```bash
     npm install @next/font
 ```
+
+## Redux 
+
+To use redux in next js 13 check the following link:
+
+https://stackoverflow.com/questions/74537841/is-redux-toolkit-compatible-with-next-13-new-app-directories

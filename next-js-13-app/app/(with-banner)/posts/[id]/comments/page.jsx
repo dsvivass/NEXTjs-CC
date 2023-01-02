@@ -1,5 +1,7 @@
 import React from 'react'
+import Link from 'next/link'
 import Image from 'next/image'
+import GoBack from '../../../../../components/GoBack'
 
 const fetchPostComments = async (id) => {
 
@@ -18,6 +20,7 @@ async function Post({ params }) {
     return (
         <article>
             <h1>Comentarios</h1>
+            <GoBack />
             <ul style={{ backgroundColor: '#ccc', fontSize: '12px' }}>
                 {comments.map(comment => (
                     <li key={comment.id}>
